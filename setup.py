@@ -1,30 +1,25 @@
-"""
-Flask-Encryptor
--------------
-
-This Flask extension attempts to ease users' uploaded file encryption.
-    - PyCrypto is used to encrypt/decrypt files
-    - Automatically rename and associate encrypted files
-    - Can be used to generate a download link and immediately delete the decrypted file
-"""
 from setuptools import setup
+from os.path    import dirname, join
 
+def read(fname):
+    return open(join(dirname(__file__), fname)).read()
 
 setup(
-    name                    = 'Flask-Encryptor',
-    version                 = '1.0',
+    name                    = 'flask-encryptor',
+    version                 = '0.1',
     url                     = 'https://github.com/Querdos/Flask-Encryptor',
     license                 = 'BSD',
     author                  = 'Hamza ESSAYEGH',
     author_email            = 'hamza.essayegh@protonmail.com',
     description             = 'Flask extension helping encrypting users personal files',
-    long_description        = __doc__,
-    py_modules              = ['flask_encryptor'],
+    long_description        = read('README.rst'),
+    packages                = ['flask_encryptor'],
     zip_safe                = False,
     include_package_data    = True,
     platforms               ='any',
     install_requires=[
         'flask',
+        'flask_sqlalchemy',
         'pycrypto'
     ],
     classifiers=[

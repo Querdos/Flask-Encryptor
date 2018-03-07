@@ -20,14 +20,10 @@ In order to work, flask-encryptor is based on these following modules:
 
 To install Flask-Encryptor, simply:
 
-```bash
-$ pip install flask-encryptor
-```
+    $ pip install flask-encryptor
 
 Or alternatively, you can download the repository and install manually by running:
 
-```bash
-$ git clone https://github.com/Querdos/Flask-Encryptor.git
-cd Flask-Encryptor
-python setup.py install
-```
+    $ git clone https://github.com/Querdos/Flask-Encryptor.git
+    cd Flask-Encryptor
+    python setup.py install
