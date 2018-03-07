@@ -13,7 +13,7 @@ from setuptools import setup
 setup(
     name                    = 'Flask-Encryptor',
     version                 = '1.0',
-    # url                     = 'http://example.com/flask-sqlite3/',
+    url                     = 'https://github.com/Querdos/Flask-Encryptor',
     license                 = 'BSD',
     author                  = 'Hamza ESSAYEGH',
     author_email            = 'hamza.essayegh@protonmail.com',
