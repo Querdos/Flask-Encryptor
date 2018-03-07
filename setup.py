@@ -12,7 +12,7 @@ setup(
     author                  = 'Hamza ESSAYEGH',
     author_email            = 'hamza.essayegh@protonmail.com',
     description             = 'Flask extension helping encrypting users personal files',
-    long_description        = read('README.rst'),
+    long_description        = 'See the Github repository for documentation.',
     packages                = ['flask_encryptor'],
     zip_safe                = False,
     include_package_data    = True,
