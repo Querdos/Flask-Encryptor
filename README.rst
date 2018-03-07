@@ -1,5 +1,5 @@
 Flask-Encryptor
-----------------
+================
 
 Introduction
 ----------------
@@ -25,5 +25,7 @@ To install Flask-Encryptor, simply:
 Or alternatively, you can download the repository and install manually by running:
 
     $ git clone https://github.com/Querdos/Flask-Encryptor.git
+
     $ cd Flask-Encryptor
+
     $ python setup.py install
