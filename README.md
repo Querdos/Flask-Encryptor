@@ -65,7 +65,7 @@ class User(db.Model):
     token               = db.relationship('Token',          uselist=False, back_populates="user")
 ```
 
-Let's concentrate now on the main script, main.py. The initialisation is quite simple with a few constants to set if needed::
+Let's concentrate now on the main script, main.py. The initialization is quite simple with a few constants to set if needed::
 ```python
 from flask              import Flask
 from flask_sqlalchemy   import SQLAlchemy
@@ -93,10 +93,12 @@ file_encryptor = FileEncryptor(app, db)
 ```
 Details about constants :
 
-* FILE_ENCRYPTOR_CHUNK_SIZE: Chunk size that will be used for file encryption/decryption
-* FILE_ENCRYPTOR_TMP_DIR: Temporary folder that will be used to store decrypted files
-* FILE_ENCRYPTOR_DATA_DIR: Folder used to store encrypted file
-* FILE_ENCRYPTOR_GLOBAL_KEY: Global key used to encrypt file informations
+|                           |                                                             |
+|---------------------------|-------------------------------------------------------------|
+| FILE_ENCRYPTOR_CHUNK_SIZE | Chunk size that will be used for file encryption/decryption |
+| FILE_ENCRYPTOR_TMP_DIR    | Temporary folder that will be used to store decrypted files |
+| FILE_ENCRYPTOR_DATA_DIR   | Folder used to store encrypted file                         |
+| FILE_ENCRYPTOR_GLOBAL_KEY | Global key used to encrypt file informations                |
 
 For this example, we are supposing to have three routes::
 ```python
