@@ -43,9 +43,9 @@ flask_app_test
     main.py
 ```
 
-This flask extension concentrate on personal users files encryption, meaning that we will cover two part of a flask application.
-The user part and the file upload one. You will need to implement a user class (what attributes depend on what you need
-for your application), and UploadedFile and Token classes that both inherit (respectively) from BaseFile and BaseToken::
+This flask extension concentrate on personal users files encryption, meaning that we will cover two part of a flask 
+application. The user part and the file upload one. You will need to implement a user class (what attributes depend on
+what you need for your application), and UploadedFile and Token classes that both inherit (respectively) from BaseFile and BaseToken::
 
 ```python
 from main import db
@@ -60,12 +60,13 @@ class Token(db.Model, BaseToken):
 
 class User(db.Model):
     __tablename__   = 'users'
-    [...]
+    # whatever attribute you want, such as username, password, etc...
     uploaded_files      = db.relationship('UploadedFile',   backref='users', lazy=True)
     token               = db.relationship('Token',          uselist=False, back_populates="user")
 ```
 
-Let's concentrate now on the main script, main.py. The initialization is quite simple with a few constants to set if needed::
+Let's concentrate now on the main script, main.py. The initialization is quite simple with a few constants to set if 
+needed:
 ```python
 from flask              import Flask
 from flask_sqlalchemy   import SQLAlchemy
@@ -100,15 +101,52 @@ Details about constants :
 | FILE_ENCRYPTOR_DATA_DIR   | Folder used to store encrypted file                         |
 | FILE_ENCRYPTOR_GLOBAL_KEY | Global key used to encrypt file informations                |
 
-For this example, we are supposing to have three routes::
+For this example, we are supposing to have three routes:
 ```python
     @app.route('/', methods=['GET', 'POST'])
     def index_action():
-        # something
+        # here we suppose that the form for uploading a file is in this route
+        if request.method == 'POST':
+            # checking that file parameter is in request form
+            if 'file' not in request.files:
+                flash('No file part', category='upload_errors')
+                return redirect(request.url)
+
+            # retrieving file object and checking that it is not empty
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file', category='upload_errors')
+                return redirect(request.url)
+
+            # just send the file object to file_encryptor with the current user (here, optionnaly with
+            # flask_login extension, but you can query your database if you want)
+            infos = file_encryptor.upload_encrypt(file, current_user)
+            current_user.uploaded_files.append(UploadedFile(
+                filename=infos['filename'],
+                realname=infos['realname'],
+                path=app.config['FILE_ENCRYPTOR_DATA_DIR']
+            ))
+            db.session.commit()
+            return redirect(request.url)
+        
         return render_template('index.html'), 200
 
     @app.route('/upload/<upload_filename>', methods=['GET', 'POST'])
     def uploaded_file_action(upload_filename):
-        # something
-        return [...], 200
+        # retrieving file in database
+        uploaded_file = UploadedFile.query.filter(UploadedFile.filename == filename).first()
+
+        # validation
+        if uploaded_file is None:
+            abort(400)
+
+        # decrypting the filename
+        filename      = file_encryptor.decrypt_file(uploaded_file, current_user)
+
+        # sending file to the user
+        return send_from_directory(
+            directory       = app.config['FILE_ENCRYPTOR_TMP_DIR'],
+            filename        = filename,
+            as_attachment   = True
+        )
 ```
