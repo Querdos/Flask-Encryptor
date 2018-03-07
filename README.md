@@ -93,7 +93,7 @@ file_encryptor = FileEncryptor(app, db)
 ```
 Details about constants :
 
-|                           |                                                             |
+| Constant                  | Description                                                 |
 |---------------------------|-------------------------------------------------------------|
 | FILE_ENCRYPTOR_CHUNK_SIZE | Chunk size that will be used for file encryption/decryption |
 | FILE_ENCRYPTOR_TMP_DIR    | Temporary folder that will be used to store decrypted files |
