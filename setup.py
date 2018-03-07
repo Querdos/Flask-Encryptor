@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name                    = 'flask-encryptor',
-    version                 = '0.1',
+    version                 = '0.2.3',
     url                     = 'https://github.com/Querdos/Flask-Encryptor',
     license                 = 'BSD',
     author                  = 'Hamza ESSAYEGH',
