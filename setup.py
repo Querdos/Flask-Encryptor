@@ -1,8 +1,4 @@
 from setuptools import setup
-from os.path    import dirname, join
-
-def read(fname):
-    return open(join(dirname(__file__), fname)).read()
 
 setup(
     name                    = 'flask-encryptor',
